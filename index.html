@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBill — Free Professional Invoice Generator | No Signup Required</title>
+    <meta name="description"
+        content="Create professional invoices in seconds. No signup, no fees. Privacy-first invoice generator that works offline.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <span class="logo-text">QuickBill</span>
+            </div>
+            <nav class="tab-nav">
+                <button class="tab-btn" data-tab="dashboard">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="tab-btn active" data-tab="create">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14M5 12h14" />
+                    </svg>
+                    <span>Create</span>
+                </button>
+                <button class="tab-btn" data-tab="clients">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <span>Clients</span>
+                </button>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-primary btn-glow" id="btnDownloadPdf" style="display:none">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO BANNER ===== -->
+    <section class="hero-banner">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>Create professional invoices in <span class="hero-highlight">seconds</span></h1>
+                <p>No signup. No fees. Your data stays in your browser.</p>
+                <div class="trust-badges">
+                    <span class="trust-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg> Privacy-first</span>
+                    <span class="trust-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M18 10h-4V3L4 14h6v7z" />
+                        </svg> Works offline</span>
+                    <span class="trust-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg> Unlimited invoices</span>
+                    <span class="trust-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                        </svg> No data collected</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AD BANNER TOP ===== -->
+    <div class="ad-container ad-top">
+        <!-- Replace data-ad-slot with your AdSense Slot ID -->
+        <!-- Responsive Ad Unit -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <div class="ad-placeholder-text">Ad Space (Responsive)</div>
+    </div>
+
+    <!-- ===== DASHBOARD TAB ===== -->
+    <div id="tab-dashboard" style="display:none">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="dashboard-title">Invoices & Estimates</h2>
+                    <p class="dashboard-subtitle">Manage all your documents in one place</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-primary btn-glow" id="btnNewFromDash">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        New Invoice
+                    </button>
+                    <button class="btn btn-secondary" id="btnNewEstimate">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        New Estimate
+                    </button>
+                    <button class="btn btn-ghost" id="btnExportData" title="Export all data">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </button>
+                    <button class="btn btn-ghost" id="btnImportData" title="Import backup">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                    </button>
+                    <input type="file" id="importFileInput" accept=".json" style="display:none">
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-total">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="stat-label">Total Documents</div>
+                        <div class="stat-value" id="statTotal">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-paid">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="stat-label">Paid</div>
+                        <div class="stat-value stat-paid" id="statPaid">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-pending">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="stat-label">Pending</div>
+                        <div class="stat-value stat-pending" id="statPending">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-revenue">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-value stat-revenue" id="statRevenue">$0.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-bar">
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="invoice">Invoices</button>
+                    <button class="filter-btn" data-filter="estimate">Estimates</button>
+                    <button class="filter-btn" data-filter="paid">Paid</button>
+                    <button class="filter-btn" data-filter="draft">Draft</button>
+                    <button class="filter-btn" data-filter="sent">Sent</button>
+                </div>
+                <div class="search-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="dashSearch" placeholder="Search invoices...">
+                </div>
+            </div>
+
+            <!-- Invoice List -->
+            <div id="invoiceList">
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-illustration">
+                        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                            <rect x="25" y="10" width="70" height="90" rx="8" fill="#1e1e3a" stroke="#2a2a50"
+                                stroke-width="2" />
+                            <rect x="35" y="30" width="40" height="4" rx="2" fill="#3a3a60" />
+                            <rect x="35" y="40" width="50" height="4" rx="2" fill="#3a3a60" />
+                            <rect x="35" y="50" width="30" height="4" rx="2" fill="#3a3a60" />
+                            <rect x="35" y="65" width="50" height="3" rx="1.5" fill="#2a2a50" />
+                            <rect x="35" y="73" width="50" height="3" rx="1.5" fill="#2a2a50" />
+                            <rect x="35" y="81" width="35" height="3" rx="1.5" fill="#2a2a50" />
+                            <circle cx="85" cy="85" r="20" fill="#6c63ff" fill-opacity="0.15" stroke="#6c63ff"
+                                stroke-width="2" />
+                            <path d="M79 85h12M85 79v12" stroke="#6c63ff" stroke-width="2.5" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3>No documents yet</h3>
+                    <p>Create your first invoice or estimate to get started</p>
+                    <button class="btn btn-primary btn-glow" id="btnEmptyCreate">Create Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CREATE TAB ===== -->
+    <div id="tab-create" class="tab-content active">
+        <div class="create-layout">
+            <!-- Form Panel -->
+            <div class="form-panel" id="formPanel">
+
+                <!-- Doc Type Toggle -->
+                <div class="form-section surface-1 compact">
+                    <div class="doc-type-toggle">
+                        <button class="doc-type-btn active" data-type="invoice">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                            </svg>
+                            Invoice
+                        </button>
+                        <button class="doc-type-btn" data-type="estimate">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                            </svg>
+                            Estimate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Template & Branding -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="branding">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M3 9h18" />
+                                    <path d="M9 21V9" />
+                                </svg></div>
+                            Template & Branding
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="branding">
+                        <div class="template-selector">
+                            <button class="template-option active" data-template="modern">
+                                <div class="template-preview modern-preview"></div><span>Modern</span>
+                            </button>
+                            <button class="template-option" data-template="classic">
+                                <div class="template-preview classic-preview"></div><span>Classic</span>
+                            </button>
+                            <button class="template-option" data-template="minimal">
+                                <div class="template-preview minimal-preview"></div><span>Minimal</span>
+                            </button>
+                            <button class="template-option" data-template="bold">
+                                <div class="template-preview bold-preview"></div><span>Bold</span>
+                            </button>
+                            <button class="template-option" data-template="corporate">
+                                <div class="template-preview corporate-preview"></div><span>Corporate</span>
+                            </button>
+                            <button class="template-option" data-template="creative">
+                                <div class="template-preview creative-preview"></div><span>Creative</span>
+                            </button>
+                        </div>
+                        <div class="branding-row">
+                            <div class="form-group">
+                                <label>Accent Color</label>
+                                <div class="color-picker-wrap">
+                                    <input type="color" id="accentColor" value="#6c63ff">
+                                    <span class="color-label" id="colorLabel">#6c63ff</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Logo</label>
+                                <div class="logo-upload-wrap">
+                                    <button class="btn btn-ghost btn-sm" id="btnLogoUpload">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="17 8 12 3 7 8" />
+                                            <line x1="12" y1="3" x2="12" y2="15" />
+                                        </svg>
+                                        Upload
+                                    </button>
+                                    <button class="btn btn-ghost btn-sm btn-remove-logo" id="btnRemoveLogo"
+                                        style="display:none">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <input type="file" id="logoUpload" accept="image/*" style="display:none">
+                                <div class="logo-preview-container" id="logoPreviewContainer" style="display:none">
+                                    <img id="logoPreviewImg" class="logo-preview-img" alt="Logo preview">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="form-section surface-1 compact">
+                    <div class="status-selector">
+                        <span class="section-title-inline">Status</span>
+                        <div class="status-options">
+                            <button class="status-btn active" data-status="draft">Draft</button>
+                            <button class="status-btn" data-status="sent">Sent</button>
+                            <button class="status-btn" data-status="paid">Paid</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Your Details -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="senderDetails">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg></div>
+                            Your Details
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="senderDetails">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Business / Your Name</label><input type="text"
+                                    id="senderName" placeholder="Your business name"></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="senderEmail"
+                                    placeholder="hello@yourbusiness.com"></div>
+                            <div class="form-group"><label>Phone</label><input type="tel" id="senderPhone"
+                                    placeholder="+1 (555) 000-0000"></div>
+                            <div class="form-group"><label>Website</label><input type="url" id="senderWebsite"
+                                    placeholder="yourbusiness.com"></div>
+                            <div class="form-group full-width"><label>Address</label><textarea id="senderAddress"
+                                    rows="2" placeholder="Street address&#10;City, State ZIP"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="clientDetails">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg></div>
+                            Bill To
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="clientDetails">
+                        <div class="client-header-row">
+                            <label class="checkbox-label"><input type="checkbox" id="saveClientCheck"> Save
+                                client</label>
+                            <button class="btn btn-ghost btn-sm btn-pick-client" id="btnPickClient">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                </svg>
+                                Pick Client
+                            </button>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group"><label>Client Name</label><input type="text" id="clientName"
+                                    placeholder="Client or company name"></div>
+                            <div class="form-group"><label>Client Email</label><input type="email" id="clientEmail"
+                                    placeholder="billing@client.com"></div>
+                            <div class="form-group full-width"><label>Client Address</label><textarea id="clientAddress"
+                                    rows="2" placeholder="Client street address&#10;City, State ZIP"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoice Details -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="invoiceDetails">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg></div>
+                            <span id="detailsTitle">Invoice Details</span>
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="invoiceDetails">
+                        <div class="form-grid">
+                            <div class="form-group"><label id="numberLabel">Invoice #</label><input type="text"
+                                    id="invoiceNumber" placeholder="INV-001"></div>
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <select id="invoiceCurrency">
+                                    <option value="$">$ USD</option>
+                                    <option value="€">€ EUR</option>
+                                    <option value="£">£ GBP</option>
+                                    <option value="₹">₹ INR</option>
+                                    <option value="¥">¥ JPY</option>
+                                    <option value="A$">A$ AUD</option>
+                                    <option value="C$">C$ CAD</option>
+                                    <option value="CHF">CHF</option>
+                                    <option value="S$">S$ SGD</option>
+                                    <option value="AED">AED</option>
+                                    <option value="R">R ZAR</option>
+                                    <option value="R$">R$ BRL</option>
+                                    <option value="MX$">MX$ MXN</option>
+                                    <option value="kr">kr SEK</option>
+                                    <option value="kr">kr NOK</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Invoice Date</label><input type="date" id="invoiceDate">
+                            </div>
+                            <div class="form-group"><label id="dueDateLabel">Due Date</label><input type="date"
+                                    id="dueDate"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Line Items -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="lineItemsSection">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <line x1="8" y1="6" x2="21" y2="6" />
+                                    <line x1="8" y1="12" x2="21" y2="12" />
+                                    <line x1="8" y1="18" x2="21" y2="18" />
+                                    <line x1="3" y1="6" x2="3.01" y2="6" />
+                                    <line x1="3" y1="12" x2="3.01" y2="12" />
+                                    <line x1="3" y1="18" x2="3.01" y2="18" />
+                                </svg></div>
+                            Line Items
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="lineItemsSection">
+                        <div id="lineItems"></div>
+                        <button class="btn-add-item" id="btnAddItem">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 5v14M5 12h14" />
+                            </svg>
+                            Add Line Item
+                        </button>
+                        <div class="tax-discount-row">
+                            <div class="form-group"><label>Tax %</label><input type="number" id="taxRate" value="0"
+                                    min="0" step="0.1"></div>
+                            <div class="form-group"><label>Discount %</label><input type="number" id="discountRate"
+                                    value="0" min="0" step="0.1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Details -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="paymentSection">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" />
+                                    <line x1="1" y1="10" x2="23" y2="10" />
+                                </svg></div>
+                            Payment Details
+                        </div>
+                        <div class="section-title-right">
+                            <label class="toggle-switch" onclick="event.stopPropagation()">
+                                <input type="checkbox" id="showPaymentDetails" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </button>
+                    <div class="section-body" id="paymentSection">
+                        <div id="paymentDetailsFields">
+                            <div class="form-grid">
+                                <div class="form-group"><label>Bank Name</label><input type="text" id="paymentBankName"
+                                        placeholder="Bank name"></div>
+                                <div class="form-group"><label>Account Name</label><input type="text"
+                                        id="paymentAccountName" placeholder="Account holder"></div>
+                                <div class="form-group"><label>Account Number</label><input type="text"
+                                        id="paymentAccountNumber" placeholder="Account #"></div>
+                                <div class="form-group"><label>Routing / IFSC</label><input type="text"
+                                        id="paymentRouting" placeholder="Routing code"></div>
+                                <div class="form-group full-width"><label>UPI / PayPal</label><input type="text"
+                                        id="paymentUpi" placeholder="UPI ID or PayPal email"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="notesSection">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                </svg></div>
+                            Notes & Terms
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="notesSection">
+                        <div class="form-group"><textarea id="invoiceNotes" rows="3"
+                                placeholder="Payment terms, thank-you note, or additional info..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signature -->
+                <div class="form-section surface-1">
+                    <button class="section-header" data-collapse="signatureSection">
+                        <div class="section-title">
+                            <div class="section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg></div>
+                            Signature
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                    <div class="section-body" id="signatureSection">
+                        <div class="signature-area">
+                            <canvas id="signatureCanvas" width="400" height="120"></canvas>
+                            <div class="signature-actions">
+                                <button class="btn btn-ghost btn-sm" id="btnClearSignature">Clear</button>
+                                <button class="btn btn-ghost btn-sm"
+                                    onclick="document.getElementById('signatureUpload').click()">Upload</button>
+                                <input type="file" id="signatureUpload" accept="image/*" style="display:none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button class="btn btn-ghost" id="btnClearAll">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="1 4 1 10 7 10" />
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                        </svg>
+                        Clear
+                    </button>
+                    <button class="btn btn-secondary" id="btnSaveInvoice">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                            <polyline points="7 3 7 8 15 8" />
+                        </svg>
+                        Save
+                    </button>
+                    <button class="btn btn-primary btn-glow" id="btnDownloadPdfCreate">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download PDF
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="preview-panel" id="previewPanel">
+                <div class="preview-toolbar">
+                    <span class="preview-label">Live Preview</span>
+                    <button class="btn btn-ghost btn-sm" id="btnPrint">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 6 2 18 2 18 9" />
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                            <rect x="6" y="14" width="12" height="8" />
+                        </svg>
+                        Print
+                    </button>
+                </div>
+                <div class="preview-scroll">
+                    <div class="invoice-page" id="invoicePage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CLIENTS TAB ===== -->
+    <div id="tab-clients" style="display:none">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <div>
+                    <h2 class="dashboard-title">Client Directory</h2>
+                    <p class="dashboard-subtitle">Your saved contacts for quick invoicing</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-primary btn-glow" id="btnAddClient">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <line x1="20" y1="8" x2="20" y2="14" />
+                            <line x1="23" y1="11" x2="17" y2="11" />
+                        </svg>
+                        Add Client
+                    </button>
+                </div>
+            </div>
+            <div id="clientList">
+                <div class="empty-state" id="emptyClients">
+                    <div class="empty-illustration">
+                        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                            <circle cx="45" cy="40" r="16" fill="#1e1e3a" stroke="#2a2a50" stroke-width="2" />
+                            <circle cx="45" cy="36" r="8" fill="#3a3a60" />
+                            <path d="M25 72a20 20 0 0 1 40 0" fill="#1e1e3a" stroke="#2a2a50" stroke-width="2" />
+                            <circle cx="78" cy="45" r="12" fill="#1e1e3a" stroke="#2a2a50" stroke-width="2" />
+                            <circle cx="78" cy="42" r="6" fill="#3a3a60" />
+                            <path d="M64 68a14 14 0 0 1 28 0" fill="#1e1e3a" stroke="#2a2a50" stroke-width="2" />
+                            <circle cx="85" cy="85" r="18" fill="#6c63ff" fill-opacity="0.15" stroke="#6c63ff"
+                                stroke-width="2" />
+                            <path d="M79 85h12M85 79v12" stroke="#6c63ff" stroke-width="2.5" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3>No clients saved</h3>
+                    <p>Add your first client to auto-fill invoices faster</p>
+                    <button class="btn btn-primary btn-glow" id="btnEmptyAddClient">Add Client</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CLIENT MODAL ===== -->
+    <div class="modal-overlay" id="clientModal" style="display:none">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="clientModalTitle">Add Client</h2>
+                <button class="modal-close" id="btnCloseClientModal">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label>Name</label><input type="text" id="modalClientName"
+                        placeholder="Client or company name"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="modalClientEmail"
+                        placeholder="client@example.com"></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="modalClientPhone"
+                        placeholder="+1 (555) 000-0000"></div>
+                <div class="form-group"><label>Address</label><textarea id="modalClientAddress" rows="3"
+                        placeholder="Full address"></textarea></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" id="btnCancelClient">Cancel</button>
+                <button class="btn btn-primary btn-glow" id="btnSaveClient">Save Client</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CLIENT PICKER MODAL ===== -->
+    <div class="modal-overlay" id="clientPickerModal" style="display:none">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Select Client</h2>
+                <button class="modal-close" id="btnClosePickerModal">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="pickerList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DELETE CONFIRM MODAL ===== -->
+    <div class="modal-overlay" id="deleteConfirmModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="deleteModalTitle">Confirm Delete</h3>
+                <button class="btn-icon" id="btnCloseDeleteModal"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage">Are you sure you want to delete this?</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="btnCancelDelete">Cancel</button>
+                    <button class="btn btn-danger" id="btnConfirmDelete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== AD BANNER BOTTOM ===== -->
+    <div class="ad-container ad-bottom">
+        <!-- Replace data-ad-slot with your AdSense Slot ID -->
+        <!-- Responsive Ad Unit -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <div class="ad-placeholder-text">Ad Space (Responsive)</div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>Made with <span class="footer-icon">⚡</span> by <strong>QuickBill</strong> — 100% free, forever. No signup
+            required.</p>
+        <p class="footer-sub">Need full accounting? Try <a href="https://www.waveapps.com" class="affiliate-link"
+                target="_blank">Wave</a> or <a href="https://quickbooks.intuit.com" class="affiliate-link"
+                target="_blank">QuickBooks</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
